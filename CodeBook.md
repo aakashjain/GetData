@@ -21,9 +21,10 @@ Variables
 
 Process
 -------
-1. The training cases are aggregated into `trainSet`. The test cases are aggregated into `testSet`. They are merged into `data`.
-2. Feature names are read from `features.txt` and used to set column names for `data`.
-3. Activity labels are read from `activity_labels.txt` and this data frame is merged with `data` on the basis of `activityNumber`. This adds an `activity` column providing a description of activities instead of a numeric representation.
+1. The training case subjects, features, and outcomes are read, then aggregated with `cbind` into `trainSet`. The same is done for test cases, aggregated into `testSet`.
+2. `testSet` and `trainset` are aggregated with `rbind` to form `data`.
+2. Feature names are read from `features.txt` into `features` and used to set column names for `data`.
+3. Activity labels are read from `activity_labels.txt` into `activities` and this data frame is merged with `data` on the basis of `activityNumber`. This adds an `activity` column providing a description of activities instead of a numeric representation.
 4. `activity`, `subject`, and all columns with names containing `-mean()` or `-std()` are extracted from data. This is done using `grep` on a regexp. The resulting data frame is stored as `meansDevs`.
 5. Column names in `meansDevs` are cleaned to be more readable and meaningful, using `gsub` on regexps to replace parts of column names with descriptive equivalents.
 6. `meansDevs` is `melt`ed with `activity` and `subject` as IDs. It is then `dcast`ed to give means of each feature. The result is stored in `dataSummary`.
