@@ -2,15 +2,15 @@ library(reshape2)
 setwd("UCI HAR Dataset")
 
 ## form train cases
-subject <- read.table("./train/subject_train.txt")
-X <- read.table("./train/X_train.txt")
-y <- read.table("./train/y_train.txt")
+subject <- read.table("train/subject_train.txt")
+X <- read.table("train/X_train.txt")
+y <- read.table("train/y_train.txt")
 trainSet <- cbind(subject, X, y)
 
 ## form test cases
-subject <- read.table("./test/subject_test.txt")
-X <- read.table("./test/X_test.txt")
-y <- read.table("./test/y_test.txt")
+subject <- read.table("test/subject_test.txt")
+X <- read.table("test/X_test.txt")
+y <- read.table("test/y_test.txt")
 testSet <- cbind(subject, X, y)
 
 ## merge test and train cases
@@ -24,7 +24,7 @@ names(data) <- c('subject', as.character(features$V2), 'activityNumber')
 ## add activity names
 activities <- read.table("activity_labels.txt")
 names(activities) <- c('activityNumber', 'activity')
-data <- merge(activities, data, all=TRUE)
+data <- merge(activities, data, all = TRUE)
 data <- data[order(data$activityNumber, data$subject),]
 
 ## extract mean & standard deviation columns
